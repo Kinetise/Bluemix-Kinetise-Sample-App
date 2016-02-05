@@ -10,7 +10,8 @@ applications:
   host:
   path: .
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
-  services:
-    - kinetise-free
+#  services:
+#    - kinetise-free
 
 #services:
+#  name: bluemix-kinetise
