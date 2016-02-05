@@ -1,0 +1,9 @@
+applications:
+- name: bluemix-kinetise-sample-app
+  memory: 256M
+  instances: 1
+  host:
+  path: .
+  buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
+
+#services:
