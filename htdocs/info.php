@@ -1,2 +1,2 @@
 <?php
-    echo phpinfo();ad
+    echo phpinfo();
