@@ -1,7 +1,7 @@
-declared-services:
-  kinetise-free:
-    label: kinetise
-    plan: free
+#declared-services:
+#  kinetise-free:
+#    label: kinetise
+#    plan: free
 
 applications:
 - name: bluemix-kinetise-sample-app

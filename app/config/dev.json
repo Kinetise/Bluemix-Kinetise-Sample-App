@@ -22,6 +22,7 @@
   "monolog.logfile" : "%app.rootDir%/var/logs/dev.log",
   "twig.path" : "%app.rootDir%/templates",
   "twig.options" : {
-    "cache" : "%app.rootDir%/var/cache/twig"
+    "cache" : "%app.rootDir%/var/cache/twig",
+    "debug" : true
   }
 }

@@ -3,6 +3,7 @@
 namespace KinetiseSkeleton\Provider;
 
 use KinetiseSkeleton\Controller\Api\CommentsController;
+use KinetiseSkeleton\Controller\Api\SampleController;
 use KinetiseSkeleton\Controller\Tutorial\IndexController;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
@@ -13,12 +14,16 @@ class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $app['controllers.api.comments'] = $app->share(function() use ($app) {
-            return new CommentsController($app);
+        $app['controllers.api.sample'] = $app->share(function() use ($app) {
+            return new SampleController($app);
         });
 
         $app['controllers.tutorial.index'] = $app->share(function() use ($app) {
             return new IndexController($app);
+        });
+
+        $app['controllers.welcome.index'] = $app->share(function() use ($app) {
+            return new \KinetiseSkeleton\Controller\Welcome\IndexController($app);
         });
     }
 
@@ -39,18 +44,7 @@ class ServiceProvider implements ServiceProviderInterface
             }
         });
 
-        $api->get('/comments', 'controllers.api.comments:getAction')->bind('api_comments');
-        $api->post('/comments', 'controllers.api.comments:addAction')->bind('api_comment_add');
-
-        $api
-            ->get('/comments/{id}', 'controllers.api.comments:commentAction')
-            ->assert('id', '\d+')
-            ->bind('api_comment');
-
-        $api
-            ->post('/comments/{id}/delete', 'controllers.api.comments:deleteAction')
-            ->assert('id', '\d+')
-            ->bind('api_comment_delete');
+        $api->post('/sample/get-hook', 'controllers.api.sample:getAction')->bind('api_sample_getHook');
 
         /** @var ControllerCollection $tutorial */
         $tutorial = $app['controllers_factory'];
@@ -60,6 +54,12 @@ class ServiceProvider implements ServiceProviderInterface
             ->get('/{section}', 'controllers.tutorial.index:indexAction')
             ->value('section', 'index')
             ->bind('tutorial_index');
+
+        /** @var ControllerCollection $welcome */
+        $welcome = $app['controllers_factory'];
+        $app->mount('/', $welcome);
+
+        $welcome->get('/', 'controllers.welcome.index:indexAction')->bind('welcome_index');
     }
 
 }

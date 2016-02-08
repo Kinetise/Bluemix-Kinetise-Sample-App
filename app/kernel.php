@@ -70,7 +70,7 @@ $app->error(function(\Exception $e, $code) use ($app) {
         return;
     }
 
-    $message = 'Oops, something goes wrong';
+    $message = 'Oops, something went wrong';
 
     if ($e instanceof HttpException) {
         $message = $e->getMessage();

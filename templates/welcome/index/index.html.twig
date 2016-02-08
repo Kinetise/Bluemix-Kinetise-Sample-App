@@ -1,0 +1,21 @@
+{% extends 'welcome/layout.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>Start creating app in Kinetise</h1>
+        <img src="/img/bluemix-tutorial-1.png" class="img-thumbnail"/>
+        <h2>Open Data tab</h2>
+        <img src="/img/bluemix-tutorial-2.png" class="img-thumbnail"/>
+        <h2>Click on more actions</h2>
+        <img src="/img/bluemix-tutorial-3.png" class="img-thumbnail"/>
+        <h2>Select custom logic</h2>
+        <img src="/img/bluemix-tutorial-4.png" class="img-thumbnail"/>
+        <h2>Add endpoint customization</h2>
+        <img src="/img/bluemix-tutorial-5.png" class="img-thumbnail"/>
+        <h2>Paste this address {{ url('api_sample_getHook') }} into the form and click Add.</h2>
+
+        <img src="/img/bluemix-tutorial-6.png" class="img-thumbnail"/>
+    </div>
+</div>
+{% endblock %}

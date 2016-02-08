@@ -35,10 +35,4 @@ if (APP_DEBUG === true) {
 /** @var Application $app */
 $app = require APP_PATH . '/app/kernel.php';
 
-$app->get('/', function() use ($app) {
-    return $app->json(array(
-        'message' => 'Kinetise Alterapi Skeleton'
-    ));
-});
-
 $app->run();
