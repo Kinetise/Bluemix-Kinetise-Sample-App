@@ -20,11 +20,12 @@ class SampleController extends AbstractController
     {
         $json = $request->request->get('_json', array());
 
+
         $response['columns'] = $json['data']['columns'];
         $response['rows'] = $json['data']['rows'];
 
         foreach ($response['rows'] as $key => &$row) {
-            $row['_custom_hook'] = "This was added to row {$key} by custom hook";
+            $row['custom_hook'] = "This was added to row {$key} by custom hook";
         }
 
         return new JsonResponse($response);
