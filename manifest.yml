@@ -1,7 +1,10 @@
-#declared-services:
-#  kinetise-free:
-#    label: kinetise
-#    plan: free
+declared-services:
+  kinetise-free:
+    label: kinetise
+    plan: free
+  php-mysql-db:
+      label: cleardb
+      plan: spark
 
 applications:
 - name: bluemix-kinetise-sample-app
@@ -10,8 +13,7 @@ applications:
   host:
   path: .
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
-#  services:
-#    - kinetise-free
+  services:
+    - kinetise-free
+    - php-mysql-db
 
-#services:
-#  name: bluemix-kinetise
