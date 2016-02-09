@@ -1,7 +1,7 @@
 declared-services:
-  kinetise-free:
-    label: kinetise
-    plan: free
+#  kinetise-free:
+#    label: kinetise
+#    plan: free
   php-mysql-db:
       label: cleardb
       plan: spark
@@ -16,5 +16,5 @@ applications:
   services:
     - php-mysql-db
 
-services:
-  name: kinetise-free
+#services:
+#  name: kinetise-free
