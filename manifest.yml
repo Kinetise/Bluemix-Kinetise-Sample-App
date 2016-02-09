@@ -14,6 +14,7 @@ applications:
   path: .
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
   services:
-    - kinetise-free
     - php-mysql-db
 
+services:
+  name: kinetise-free
