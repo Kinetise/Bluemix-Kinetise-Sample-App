@@ -3,10 +3,6 @@
   "app.cacheDir" : "%app.rootDir%/var/cache",
   "app.logsDir" : "%app.rootDir%/var/logs",
   "profiler.cache_dir" : "%app.rootDir%/var/cache/profiler",
-  "db.options" : {
-    "driver" : "pdo_sqlite",
-    "path" : "%app.rootDir%/var/alterapi.db"
-  },
   "orm.proxies_dir" : "%app.rootDir%/src/KinetiseSkeleton/Doctrine/Proxy",
   "orm.auto_generate_proxies" : true,
   "orm.em.options" : {

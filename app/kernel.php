@@ -34,11 +34,43 @@ $app['debug'] = APP_DEBUG;
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
+$app->register(new MonologServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
-$app->register(new DoctrineServiceProvider());
+
+try {
+    if(isset($_ENV["VCAP_SERVICES"])){ // running in bluemix
+        $vcap_services = json_decode($_ENV["VCAP_SERVICES" ]);
+        if(isset($vcap_services->{'mysql-5.5'})){ //if "mysql" db service is bound to this application
+            $db = $vcap_services->{'mysql-5.5'}[0]->credentials;
+        }
+        else if(isset($vcap_services->{'cleardb'})){ //if cleardb mysql db service is bound to this application
+            $db = $vcap_services->{'cleardb'}[0]->credentials;
+        } else {
+            echo "Error: No suitable MySQL database bound to the application. <br>";
+            die();
+        }
+
+        $app->register(new DoctrineServiceProvider(), array(
+            'db.options' => array(
+                'driver' => 'pdo_mysql',
+                'host' => $db->hostname,
+                'port' => $db->port,
+                'dbname' => $db->name,
+                'user' => $db->username,
+                'password' => $db->password,
+                'path' => ''
+            ),
+        ));
+    } else {
+        $app->register(new DoctrineServiceProvider());
+    }
+} catch ( Exception $e ) {
+    die(var_dump($e->getMessage()));
+}
+
+
 $app->register(new KinetiseServiceProvider());
 $app->register(new DoctrineOrmServiceProvider());
-$app->register(new MonologServiceProvider());
 
 // initialize serializer
 $app['jms.serializer'] = $app->share(function () use ($app) {
