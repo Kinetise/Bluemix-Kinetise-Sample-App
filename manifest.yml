@@ -13,7 +13,7 @@ applications:
   host:
   path: .
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
-#  command: php app/console orm:schema-tool:create
+  command: $HOME/php/bin/php $HOME/app/console orm:schema-tool:create
   services:
     - php-mysql-db
 
