@@ -25,9 +25,9 @@ class SampleController extends AbstractController
             if ( isset($rows[$key]) ) {
                 /** @var SampleData $dbSampleDataObject */
                 $dbSampleDataObject = $rows[$key];
-                $row['custom_hook'] = $dbSampleDataObject->getDescription();
+                $row['description'] = $dbSampleDataObject->getDescription();
             } else {
-                $row['custom_hook'] = "This was added to row {$key} by custom hook";
+                $row['description'] = "This row was modified by custom hook";
             }
         }
 
