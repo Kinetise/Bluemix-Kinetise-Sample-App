@@ -10,10 +10,10 @@ applications:
 - name: bluemix-kinetise-sample-app
   memory: 256M
   instances: 1
-  host:
+#  host:
   path: .
   buildpack: https://github.com/dmikusa-pivotal/cf-php-build-pack.git
-#  command: $HOME/php/bin/php $HOME/app/console orm:schema-tool:create
+  command: /$HOME/php/bin/php /$HOME/app/console orm:schema-tool:update --force -q && /$HOME/php/bin/php /$HOME/app/console dbal:import /$HOME/var/initialDatabaseSeed.sql && $HOME/.bp/bin/start
   services:
     - php-mysql-db
 

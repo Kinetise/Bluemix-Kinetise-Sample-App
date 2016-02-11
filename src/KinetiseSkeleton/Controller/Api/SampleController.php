@@ -2,17 +2,12 @@
 
 namespace KinetiseSkeleton\Controller\Api;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\SerializationContext;
 use KinetiseSkeleton\Controller\AbstractController;
 use KinetiseSkeleton\Doctrine\Entity\Comment;
-use KinetiseSkeleton\Response\MessageResponse;
-use KinetiseSkeleton\Response\Model\Rss;
+use KinetiseSkeleton\Doctrine\Entity\SampleData;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SampleController extends AbstractController
 {
@@ -20,12 +15,20 @@ class SampleController extends AbstractController
     {
         $json = $request->request->get('_json', array());
 
+        $sampleDataRepository = $this->getEntityManager()->getRepository('KinetiseSkeleton\Doctrine\Entity\SampleData');
+        $rows = $sampleDataRepository->findAll();
 
         $response['columns'] = $json['data']['columns'];
         $response['rows'] = $json['data']['rows'];
 
         foreach ($response['rows'] as $key => &$row) {
-            $row['custom_hook'] = "This was added to row {$key} by custom hook";
+            if ( isset($rows[$key]) ) {
+                /** @var SampleData $dbSampleDataObject */
+                $dbSampleDataObject = $rows[$key];
+                $row['custom_hook'] = $dbSampleDataObject->getDescription();
+            } else {
+                $row['custom_hook'] = "This was added to row {$key} by custom hook";
+            }
         }
 
         return new JsonResponse($response);

@@ -38,12 +38,11 @@ $app->register(new MonologServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 
 try {
-    if(isset($_ENV["VCAP_SERVICES"])){ // running in bluemix
-        $vcap_services = json_decode($_ENV["VCAP_SERVICES" ]);
-        if(isset($vcap_services->{'mysql-5.5'})){ //if "mysql" db service is bound to this application
+    if (isset($_ENV["VCAP_SERVICES"])) { // running in bluemix
+        $vcap_services = json_decode($_ENV["VCAP_SERVICES"]);
+        if (isset($vcap_services->{'mysql-5.5'})) { //if "mysql" db service is bound to this application
             $db = $vcap_services->{'mysql-5.5'}[0]->credentials;
-        }
-        else if(isset($vcap_services->{'cleardb'})){ //if cleardb mysql db service is bound to this application
+        } else if (isset($vcap_services->{'cleardb'})) { //if cleardb mysql db service is bound to this application
             $db = $vcap_services->{'cleardb'}[0]->credentials;
         } else {
             echo "Error: No suitable MySQL database bound to the application. <br>";
@@ -64,7 +63,7 @@ try {
     } else {
         $app->register(new DoctrineServiceProvider());
     }
-} catch ( Exception $e ) {
+} catch (Exception $e) {
     die(var_dump($e->getMessage()));
 }
 
@@ -86,7 +85,7 @@ $app['jms.serializer'] = $app->share(function () use ($app) {
     return $builder->build();
 });
 
-$app['db.config'] = $app->extend('db.config', function($config, $app) {
+$app['db.config'] = $app->extend('db.config', function ($config, $app) {
     $config->setSQLLogger(
         new KinetiseDoctrineLogger($app['monolog'])
     );
@@ -97,7 +96,7 @@ if ($app['debug'] === true) {
     $app->register(new WebProfilerServiceProvider());
 }
 
-$app->error(function(\Exception $e, $code) use ($app) {
+$app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug'] === true) {
         return;
     }
